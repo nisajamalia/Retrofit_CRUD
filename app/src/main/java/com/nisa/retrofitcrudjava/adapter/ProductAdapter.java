@@ -29,6 +29,7 @@ public class ProductAdapter extends ArrayAdapter<PersonItem> {
         this.personItem = objects;
     }
 
+
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -36,19 +37,23 @@ public class ProductAdapter extends ArrayAdapter<PersonItem> {
                 .LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.list_item, parent, false);
 
+        TextView txtIdProduct = v.findViewById(R.id.txt_product_id);
         TextView txtNameProduct = v.findViewById(R.id.txt_product_name);
         TextView txtPriceProduct = v.findViewById(R.id.txt_product_price);
         TextView txtDescProduct = v.findViewById(R.id.txt_product_desc);
 
-        txtNameProduct.setText(String.format("name", personItem.get(position).getName()));
-        txtPriceProduct.setText(String.format("price", personItem.get(position).getPrice()));
-        txtDescProduct.setText(String.format("desc", personItem.get(position).getDesc()));
+        txtIdProduct.setText(String.valueOf( personItem.get(position).getId()));
+        txtNameProduct.setText(String.valueOf(personItem.get(position).getName()));
+        txtPriceProduct.setText(String.valueOf(personItem.get(position).getPrice()));
+        txtDescProduct.setText(String.valueOf(personItem.get(position).getDesc()));
 
         //proses ngebawa data dari recyclerview ke detail
+
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductActivity.class);
+                intent.putExtra("id", String.valueOf(personItem.get(position).getId()));
                 intent.putExtra("name", personItem.get(position).getName());
                 intent.putExtra("price", personItem.get(position).getPrice());
                 intent.putExtra("desc", personItem.get(position).getDesc());

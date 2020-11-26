@@ -5,26 +5,37 @@ import com.nisa.retrofitcrudjava.model.PersonItem;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Path;
 
 public interface ProductService {
     // naro endPoint kyk get , post dll
 
-    @GET("person/get")
+    @GET("person/get/")
     Call<List<PersonItem>> getProduct();
 
-    @POST("person/add")
-    Call<PersonItem> addProduct(@Body PersonItem personItem);
+    @FormUrlEncoded
+    @POST("person/add/")
+    Call<PersonItem> addProduct(@Field("name") String name,
+                                @Field("price") String price,
+                                @Field("desc") String desc);
 
-    @PUT("person/update")
-    Call<PersonItem> updateProduct(@Path("id") int id,
-                                   @Body PersonItem personItem);
-    @DELETE("person/delete")
-    Call<PersonItem> deleteProduct(@Path("id") int id);
+    @FormUrlEncoded
+    @PUT("person/update/")
+    Call<PersonItem> updateProduct(@Field("id") int id,
+                                   @Field("name") String name,
+                                   @Field("price") String price,
+                                   @Field("desc") String desc);
+
+
+    @FormUrlEncoded // untuk memanggil fieldnya ini
+    @HTTP(method = "DELETE", path = ("person/delete/"), hasBody =  true)
+    Call<PersonItem> deleteProduct(@Field("id") int id);
+
+
 
 }

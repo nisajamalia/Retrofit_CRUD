@@ -22,11 +22,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
     Button btnAddUser;
     Button btnGetUser;
     ListView rv;
     ProductService productService;
-    List<PersonItem> list = new ArrayList<PersonItem>();
+    List<PersonItem> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<PersonItem>>() {
             @Override
             public void onResponse(Call<List<PersonItem>> call, Response<List<PersonItem>> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()){
                     list = response.body();
                     rv.setAdapter(new ProductAdapter(MainActivity.this,
                             R.layout.list_item, list));
